@@ -57,7 +57,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
-      backgroundColor: Colors.white12,
+      backgroundColor: Colors.blue,
     );
   }
 }
