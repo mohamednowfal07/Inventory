@@ -1,20 +1,69 @@
+// import 'package:flutter/material.dart';
+// import 'package:inventory_project/cart_screen.dart';
+// import 'package:inventory_project/home_screen.dart';
+// import 'package:inventory_project/productdetails_screen.dart';
+// import 'package:inventory_project/profile_screen.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Inventory App',
+//       home: MainScreen(),
+//     );
+//   }
+// }
+
+// ignore_for_file: dangling_library_doc_comments
+
+//////////Toggle Switch//////////////
 import 'package:flutter/material.dart';
 import 'package:inventory_project/cart_screen.dart';
 import 'package:inventory_project/home_screen.dart';
+import 'package:inventory_project/model/provider/cart_provider.dart';
 import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/profile_screen.dart';
+import 'package:inventory_project/screens/product_listscreen.dart';
+import 'package:provider/provider.dart';
+import 'theme_provider.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Inventory App',
-      home: MainScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+      ],
+      child: Consumer<ThemeProvider>(builder: (context, Theme, child) {
+        final themeProvider = Provider.of<ThemeProvider>(context);
+
+        return MaterialApp(
+          title: 'Theme Toggle App',
+          themeMode: themeProvider.themeMode,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.blue,
+          ),
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            primarySwatch: Colors.deepPurple,
+          ),
+          home: ProductListScreen(),
+          debugShowCheckedModeBanner: false,
+        );
+      }),
     );
   }
 }
@@ -57,7 +106,7 @@ class _MainScreenState extends State<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
-      backgroundColor: Colors.white12,
+      backgroundColor: Colors.blue,
     );
   }
 }
