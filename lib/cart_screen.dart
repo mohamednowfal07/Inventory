@@ -19,11 +19,10 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
     final items = cart.cartItems.values.toList();
-
+    print(items);
     return Scaffold(
         appBar: AppBar(
           title: Text("Cart"),
-          
           actions: [
             IconButton(
               icon: Icon(Icons.delete),
@@ -56,17 +55,37 @@ class _CartScreenState extends State<CartScreen> {
                               subtitle: Text(
                                 item.price.toString(),
                               ),
-                              trailing: IconButton(
-                                  onPressed: () {
-                                    cart.removeFromCart(item.id);
-                                  },
-                                  icon: Icon(Icons.delete)),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "totalPrice:${item.totalPrice}",
+                                    style: TextStyle(fontSize: 10),
+                                  ),
+                                  Text(item.quantity.toString()),
+                                  IconButton(
+                                    onPressed: () {
+                                      cart.addToCart(
+                                        Product(
+                                            id: item.id,
+                                            name: item.name,
+                                            price: item.price,
+                                            image: item.image),
+                                      );
+                                    },
+                                    icon: Icon(
+                                      Icons.add,
+                                      size: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             );
                           })),
                   Container(
                     margin: EdgeInsets.all(60),
                   ),
-                  Text("TotalPrice:${cart.totalprice}"),
+                  Text("TotalPrice:${cart.totalPrice}"),
                 ],
               ));
   }

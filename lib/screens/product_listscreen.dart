@@ -38,16 +38,29 @@ class ProductListScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Product List'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartScreen(),
-                  ));
-            },
-          ),
+          Stack(children: [
+            IconButton(
+              icon: Icon(Icons.shopping_cart),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CartScreen(),
+                    ));
+              },
+            ),
+            Positioned(
+                top: 2,
+                right: 2,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  radius: 10,
+                  child: Text(
+                    cart.cartItems.length.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  ),
+                ))
+          ])
         ],
       ),
       body: Container(
@@ -57,26 +70,31 @@ class ProductListScreen extends StatelessWidget {
           itemCount: products.length,
           itemBuilder: (_, index) {
             final product = products[index];
-            return GestureDetector(
-              onTap: () {
-                cart.addToCart(product);
-              },
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Image.network(
-                      product.image,
-                      width: 100,
-                      height: 100,
-                    ),
-                    title: Text(product.name),
-                    subtitle: Text('/${product.price.toString()}'),
-                    onTap: () {
-                      cart.addToCart(product);
-                    },
+            return Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    cart.addToCart(product);
+                  },
+                  child: Column(
+                    children: [
+                      ListTile(
+                        leading: Image.network(
+                          product.image,
+                          width: 100,
+                          height: 100,
+                        ),
+                        title: Text(product.name),
+                        subtitle: Text('${product.price.toStringAsFixed(2)}'),
+                        
+                        onTap: () {
+                          cart.addToCart(product);
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ),

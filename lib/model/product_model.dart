@@ -12,5 +12,7 @@ class Product {
     required this.image, 
   });
 
+  get quantity => null;
+
 
 }
