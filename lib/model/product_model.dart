@@ -1,4 +1,8 @@
 // models/product.dart
+// ignore_for_file: body_might_complete_normally_nullable
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Product {
   String id;
   String name;
@@ -24,4 +28,10 @@ class Product {
   }
 
   data() {}
+
+  Object? toMap() {}
+
 }
+
+
+

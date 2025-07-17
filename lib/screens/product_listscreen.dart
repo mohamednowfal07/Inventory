@@ -120,6 +120,7 @@ import 'package:flutter/material.dart';
 import 'package:inventory_project/cart_screen.dart';
 import 'package:inventory_project/model/product_model.dart';
 import 'package:inventory_project/model/provider/cart_provider.dart';
+import 'package:inventory_project/screens/add_edit_screen.dart';
 import 'package:inventory_project/servives/product_services.dart';
 import 'package:provider/provider.dart';
 
@@ -128,6 +129,7 @@ class ProductListScreen extends StatefulWidget {
   @override
   State<ProductListScreen> createState() => _ProductListScreen();
 }
+
 class _ProductListScreen extends State<ProductListScreen> {
   late Future<List<Product>> _product;
   void initState() {
@@ -139,9 +141,15 @@ class _ProductListScreen extends State<ProductListScreen> {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("ProductList"),
-        backgroundColor: Colors.brown,
+        title: Text("Products List"),
+        backgroundColor: Colors.blueGrey,
         actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartScreen()));
+              },
+              icon: Icon(Icons.add)),
           Stack(
             children: [
               IconButton(
@@ -152,17 +160,17 @@ class _ProductListScreen extends State<ProductListScreen> {
                 icon: Icon(Icons.shopping_cart),
               ),
               Positioned(
-                  top: 2,
-                  right: 2,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                    radius: 10,
-                    child: Text(
-                      cart.cartItems.length.toString(),
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
+                top: 2,
+                right: 2,
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueGrey,
+                  radius: 10,
+                  child: Text(
+                    cart.cartItems.length.toString(),
+                    style: TextStyle(color: Colors.white, fontSize: 12),
                   ),
-                  ),
+                ),
+              ),
             ],
           )
         ],
@@ -181,15 +189,25 @@ class _ProductListScreen extends State<ProductListScreen> {
             itemCount: products.length,
             itemBuilder: (context, index) {
               final product = products[index].data() as Map<String, dynamic>;
-              return ListTile(
-                leading: Image.network(product['image'], width: 50),
-                title: Text(product['name']),
-                subtitle: Text("₹${product['price']}"),
-                trailing: ElevatedButton(
-                  onPressed: () {
-                    cart.addToCart(products as Product);
-                  },
-                  child: Text("Add To Cart"),
+              return GestureDetector(
+                onLongPress: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AddEditScreen()));
+                },
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Image.network(product['image'], width: 50),
+                      title: Text(product['name']),
+                      subtitle: Text("₹${product['price']}"),
+                      trailing: ElevatedButton(
+                        onPressed: () {
+                          cart.addToCart(products as Product);
+                        },
+                        child: Text("Add To Cart"),
+                      ),
+                    ),
+                  ],
                 ),
               );
             },
