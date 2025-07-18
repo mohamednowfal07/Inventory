@@ -21,9 +21,13 @@ class _AddEditScreenState extends State<AddEditScreen> {
   final productService = FirestoreServices();
 
   @override
-  @override
   void initState() {
     super.initState();
+    if (widget.product != null) {
+      _idController.text = widget.product!.id.toString();
+      _nameController.text = widget.product!.name.toString();
+      _priceController.text = widget.product!.price.toString();
+    }
   }
 
   Widget build(BuildContext context) {
@@ -51,21 +55,23 @@ class _AddEditScreenState extends State<AddEditScreen> {
       body: Container(
         margin: EdgeInsets.all(20),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               isEdit
                   ? CircleAvatar(
-                      radius: 50,
+                      radius: 60,
                       backgroundImage: AssetImage(widget.product!.image),
-                      backgroundColor: Colors.grey,
+                      backgroundColor: Colors.blueGrey,
                     )
                   : Container(),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               TextFormField(
                 controller: _idController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   label: Text("id"),
+                  
                 ),
               ),
               SizedBox(height: 20),
@@ -119,7 +125,7 @@ class _AddEditScreenState extends State<AddEditScreen> {
           ? widget.product!.image
           : "assets/images/jersey.jpg",
       price: double.parse(_priceController.text),
-      productId: (widget.product != null) ? widget.product!.productId : 'R',
+      productId: (widget.product != null) ? widget.product!.productId : '',
     );
     if (widget.product == null) {
       await productService.addProduct(product);

@@ -1,5 +1,5 @@
 // models/product.dart
-// ignore_for_file: body_might_complete_normally_nullable
+// ignore_for_file: body_might_complete_normally_nullable, unused_import
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -18,6 +18,16 @@ class Product {
     this.productId = "",
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+      'price': price,
+      'productId': productId,
+    };
+  }
+
   factory Product.fromMap(Map<String, dynamic> data, String docId) {
     return Product(
         id: data['id'],
@@ -26,12 +36,4 @@ class Product {
         image: data['image'],
         productId: docId);
   }
-
-  data() {}
-
-  Object? toMap() {}
-
 }
-
-
-
