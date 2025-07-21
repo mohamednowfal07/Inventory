@@ -110,20 +110,23 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: const Text('LoginScreen')),
       body: Padding(
         padding: EdgeInsets.all(16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: usernameController,
-              decoration: InputDecoration(labelText: "Username"),
+              decoration:
+                  InputDecoration(hintText: "Username", labelText: "Username"),
             ),
             SizedBox(height: 12),
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration:
+                  InputDecoration(hintText: "Password", labelText: "Password"),
             ),
             SizedBox(height: 20),
             ElevatedButton(
