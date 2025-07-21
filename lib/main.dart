@@ -31,6 +31,7 @@ import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/profile_screen.dart';
 import 'package:inventory_project/screens/login_screen.dart';
 import 'package:inventory_project/screens/product_listscreen.dart';
+import 'package:inventory_project/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'theme_provider.dart';
 
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             primarySwatch: Colors.deepPurple,
           ),
-          home: LoginScreen(),
+          home: SplashScreen(),
           debugShowCheckedModeBanner: false,
         );
       }),
