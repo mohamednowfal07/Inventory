@@ -1,3 +1,5 @@
+// ignore_for_file: annotate_overrides, unused_import
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_project/cart_screen.dart';

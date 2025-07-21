@@ -19,7 +19,7 @@
 //   }
 // }
 
-// ignore_for_file: dangling_library_doc_comments, await_only_futures
+// ignore_for_file: dangling_library_doc_comments, await_only_futures, unused_import
 
 //////////Toggle Switch//////////////
 import 'package:firebase_core/firebase_core.dart';
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.dark,
             primarySwatch: Colors.deepPurple,
           ),
-          home: ProductListScreen(),
+          home: LoginScreen(),
           debugShowCheckedModeBanner: false,
         );
       }),
