@@ -29,6 +29,7 @@ import 'package:inventory_project/home_screen.dart';
 import 'package:inventory_project/model/provider/cart_provider.dart';
 import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/profile_screen.dart';
+import 'package:inventory_project/screens/animated_inventory_screen.dart';
 import 'package:inventory_project/screens/login_screen.dart';
 import 'package:inventory_project/screens/product_listscreen.dart';
 import 'package:inventory_project/screens/splash_screen.dart';
@@ -90,7 +91,8 @@ class _MainScreenState extends State<MainScreen> {
 
   final screens = [
     HomeScreen(),
-    ProductScreen(),
+    // ProductScreen(),
+    ProductListScreen(),
     CartScreen(),
     ProfileScreen(),
   ];

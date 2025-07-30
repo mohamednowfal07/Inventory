@@ -32,7 +32,7 @@ class Product {
     return Product(
         id: data['id'],
         name: data['name'],
-        price: data['price'].todouble(),
+        price: data['price'].toDouble(),
         image: data['image'],
         productId: docId);
   }

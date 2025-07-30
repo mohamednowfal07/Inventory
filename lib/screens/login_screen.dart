@@ -1,140 +1,109 @@
-// // ignore_for_file: use_key_in_widget_constructors
-
-// import 'package:flutter/material.dart';
-
-// class LoginScreen extends StatefulWidget {
-//   @override
-//   State<LoginScreen> createState() => _LoginScreenState();
-// }
-
-// class _LoginScreenState extends State<LoginScreen> {
-//   final usernameController = TextEditingController();
-//   final passwordController = TextEditingController();
-//   bool isLoggedIn = false;
-
-//   void login() {
-//     setState(() {
-//       isLoggedIn = true;
-//     });
-//   }
-
-//   void logout() {
-//     setState(() {
-//       isLoggedIn = false;
-//       usernameController.clear();
-//       passwordController.clear();
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(isLoggedIn ? "Welcome" : "Login"),
-//         centerTitle: true,
-//       ),
-//       body: Center(
-//         child: isLoggedIn
-//             ? Column(
-//                 mainAxisAlignment: MainAxisAlignment.center,
-//                 children: [
-//                   Text("Hello, ${usernameController.text}", style: TextStyle(fontSize: 20)),
-//                   SizedBox(height: 20),
-//                   ElevatedButton(
-//                     onPressed: logout,
-//                     child: Text("Logout"),
-//                   ),
-//                 ],
-//               )
-//             : Padding(
-//                 padding: const EdgeInsets.all(20.0),
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     TextField(
-//                       controller: usernameController,
-//                       decoration: InputDecoration(
-//                         labelText: 'Username',
-//                         border: OutlineInputBorder(),
-//                       ),
-//                     ),
-//                     SizedBox(height: 15),
-//                     TextField(
-//                       controller: passwordController,
-//                       obscureText: true,
-//                       decoration: InputDecoration(
-//                         labelText: 'Password',
-//                         border: OutlineInputBorder(),
-//                       ),
-//                     ),
-//                     SizedBox(height: 20),
-//                     ElevatedButton(
-//                       onPressed: login,
-//                       child: Text("Login"),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//       ),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-import 'package:inventory_project/screens/product_listscreen.dart';
+import 'package:inventory_project/main.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
-import '../home_screen.dart';
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
+  bool _obscurePassword = true;
 
-  void login(BuildContext context) async {
-    String username = usernameController.text.trim();
-    if (username.isNotEmpty) {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setString('username', username);
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => HomeScreen()),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Please enter username")),
-      );
-    }
+  void _navigateToMainScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => MainScreen()),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('LoginScreen')),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: usernameController,
-              decoration:
-                  InputDecoration(hintText: "Username", labelText: "Username"),
-            ),
-            SizedBox(height: 12),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration:
-                  InputDecoration(hintText: "Password", labelText: "Password"),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () => login(context),
-              child: Text("Login"),
-            ),
-          ],
+      backgroundColor: Colors.deepPurple[50],
+      body: Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.password, size: 100, color: Colors.deepPurple),
+              const SizedBox(height: 30),
+              const Text(
+                'Login Screen',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 30),
+              TextField(
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  prefixIcon:
+                      const Icon(Icons.person, color: Colors.deepPurple),
+                  hintText: 'Username',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 20),
+              TextField(
+                controller: _passwordController,
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.lock, color: Colors.deepPurple),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      color: Colors.deepPurple,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
+                  hintText: 'Password',
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
+              const SizedBox(height: 30),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _navigateToMainScreen,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 52, 48, 58),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: const Text('Login', style: TextStyle(fontSize: 18)),
+                ),
+              ),
+              const SizedBox(height: 15),
+              TextButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Redirecting to Sign Up...")),
+                  );
+                },
+                child: const Text(
+                  "Don't have an account? Sign Up",
+                  style: TextStyle(color: Colors.deepPurple),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

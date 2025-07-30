@@ -3,9 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:inventory_project/cart_screen.dart';
+import 'package:inventory_project/main.dart';
 import 'package:inventory_project/model/product_model.dart';
 import 'package:inventory_project/model/provider/cart_provider.dart';
+import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/screens/add_edit_screen.dart';
+import 'package:inventory_project/screens/animated_inventory_screen.dart';
+import 'package:inventory_project/screens/explicit_animation_screen.dart';
 import 'package:inventory_project/servives/product_services.dart';
 import 'package:provider/provider.dart';
 
@@ -17,16 +21,51 @@ class ProductListScreen extends StatefulWidget {
 
 class _ProductListScreen extends State<ProductListScreen> {
   late Future<List<Product>> _product;
+  @override
   void initState() {
     super.initState();
     _product = FirestoreServices().fetchProduct();
   }
 
+  @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration:
+                  BoxDecoration(color: const Color.fromARGB(255, 0, 0, 0)),
+              child: Text(
+                'Nowfal',
+                style: TextStyle(fontSize: 24, color: Colors.indigo),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.animation),
+              title: Text('Animation'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImplicitAnimationsScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.animation),
+              title: Text('Explicit Animation'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ExplicitAnimationScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
-        title: Text("Products List"),
+        title: Text("Products List",
+            style: Theme.of(context).textTheme.titleLarge),
         backgroundColor: Colors.blueGrey,
         actions: [
           IconButton(
@@ -69,10 +108,11 @@ class _ProductListScreen extends State<ProductListScreen> {
               return Center(child: CircularProgressIndicator());
             }
             if (snapshot.hasError) {
+              print(snapshot);
               return Center(child: Text("Data has some error"));
             }
             final product = snapshot.data;
-
+            print(product);
             return GridView.builder(
               gridDelegate:
                   SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),

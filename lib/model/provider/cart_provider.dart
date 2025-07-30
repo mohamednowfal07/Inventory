@@ -4,15 +4,17 @@ import 'package:inventory_project/model/cart_model.dart';
 import 'package:inventory_project/model/product_model.dart';
 
 class CartProvider extends ChangeNotifier {
-  final Map<String, CartModel> _cartItems = {};
+  final Map<String, CartItem> _cartItems = {};
 
-  Map<String, CartModel> get cartItems => _cartItems;
+  var total;
+
+  Map<String, CartItem> get cartItems => _cartItems;
 
   void addToCart(Product product) {
     if (_cartItems.containsKey(product.id)) {
       _cartItems.update(
           product.id,
-          (value) => CartModel(
+          (value) => CartItem(
                 id: value.id,
                 name: value.name,
                 image: value.image,
@@ -20,7 +22,7 @@ class CartProvider extends ChangeNotifier {
                 quantity: value.quantity + 1,
               ));
     } else {
-      _cartItems[product.id] = CartModel(
+      _cartItems[product.id] = CartItem(
           id: product.id,
           name: product.name,
           image: product.image,
@@ -35,17 +37,16 @@ class CartProvider extends ChangeNotifier {
         _cartItems[productId]!.quantity > 1) {
       _cartItems.update(
         productId,
-        (value) => CartModel(
+        (value) => CartItem(
           id: value.id,
           name: value.name,
           image: value.image,
           price: value.price,
-          quantity: value.quantity-1,
+          quantity: value.quantity - 1,
         ),
       );
     } else {
       _cartItems.remove(productId);
-      
     }
     notifyListeners();
   }

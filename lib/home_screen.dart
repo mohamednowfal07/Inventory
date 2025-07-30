@@ -1,39 +1,9 @@
-// ///////Toggle Switch//////
-// import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
-// import 'theme_provider.dart';
 
-// class HomeScreen extends StatelessWidget {
-//   const HomeScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final themeProvider = Provider.of<ThemeProvider>(context);
-
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text(""),
-//         actions: [
-//           Switch(
-//             value: themeProvider.isDarkMode,
-//             onChanged: (value) {
-//               themeProvider.toggleTheme(value);
-//             },
-//           ),
-//         ],
-//       ),
-//       body: const Center(
-//         child: Text(
-//           "Toggle switch!",
-//           style: TextStyle(fontSize: 18),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 import 'package:flutter/material.dart';
 import 'package:inventory_project/screens/login_screen.dart';
+import 'package:inventory_project/theme_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,8 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(
+        actions: [
+          Switch(
+              value: themeProvider.isDarkMode,
+              onChanged: (value) {
+                themeProvider.toggleTheme(value);
+              }),
+        ],
+      ),
       drawer: Drawer(
         child: Column(
           children: [
