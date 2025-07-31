@@ -10,6 +10,7 @@ import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/screens/add_edit_screen.dart';
 import 'package:inventory_project/screens/animated_inventory_screen.dart';
 import 'package:inventory_project/screens/explicit_animation_screen.dart';
+import 'package:inventory_project/screens/hero_animation_screen.dart';
 import 'package:inventory_project/servives/product_services.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,14 @@ class _ProductListScreen extends State<ProductListScreen> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ExplicitAnimationScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.animation),
+              title: Text('Hero Animation'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HeroAnimationScreen()));
               },
             ),
           ],

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:inventory_project/home_screen.dart';
 import 'package:inventory_project/main.dart';
