@@ -9,6 +9,7 @@ import 'package:inventory_project/model/provider/cart_provider.dart';
 import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/screens/add_edit_screen.dart';
 import 'package:inventory_project/screens/animated_inventory_screen.dart';
+import 'package:inventory_project/screens/custompaint_screen.dart';
 import 'package:inventory_project/screens/explicit_animation_screen.dart';
 import 'package:inventory_project/screens/hero_animation_screen.dart';
 import 'package:inventory_project/servives/product_services.dart';
@@ -57,16 +58,30 @@ class _ProductListScreen extends State<ProductListScreen> {
               leading: Icon(Icons.animation),
               title: Text('Explicit Animation'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ExplicitAnimationScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ExplicitAnimationScreen()));
               },
             ),
             ListTile(
               leading: Icon(Icons.animation),
               title: Text('Hero Animation'),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HeroAnimationScreen()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HeroAnimationScreen()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.screenshot_monitor_sharp),
+              title: Text('Canvas Screen'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CanvasScreen()));
               },
             ),
           ],

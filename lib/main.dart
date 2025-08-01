@@ -30,6 +30,7 @@ import 'package:inventory_project/model/provider/cart_provider.dart';
 import 'package:inventory_project/productdetails_screen.dart';
 import 'package:inventory_project/profile_screen.dart';
 import 'package:inventory_project/screens/animated_inventory_screen.dart';
+import 'package:inventory_project/screens/custompaint_screen.dart';
 import 'package:inventory_project/screens/hero_animation_screen.dart';
 import 'package:inventory_project/screens/login_screen.dart';
 import 'package:inventory_project/screens/product_listscreen.dart';
